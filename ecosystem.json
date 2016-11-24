@@ -1,0 +1,17 @@
+{
+  "apps": [{
+    "cwd": "api",
+    "name": "SocketIODemo_API",
+    "script": "runDev.js",
+    "env": {
+      "PORT": 1733,
+      "DEBUG": "SocketIODemo:*",
+      "SOCKETIODEMO_DB": "mariadb://rytass:rytass2O15@localhost/socketiodemo",
+      "NODE_ENV": "development",
+    },
+    "watch": true,
+    "ignore_watch": [
+      "node_modules",
+    ],
+  }],
+}
