@@ -13,5 +13,14 @@
     "ignore_watch": [
       "node_modules",
     ],
+  }, {
+    "cwd": "admin",
+    "name": "SocketIODemo_Admin",
+    "script": "runDev.js",
+    "env": {
+      "DEBUG": "SocketIODemo:*",
+      "NODE_ENV": "development",
+      "PORT": 1743,
+    },
   }],
 }
