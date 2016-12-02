@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>多人聊天室監控台</title>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='initial-scale=1, maximum-scale=1' />
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: 'PingFeng TC', '微軟正黑體', sans-serif;
+      }
+
+      html, body {
+        padding: 0;
+        margin: 0;
+      }
+
+      html {
+        height: 100vh;
+      }
+
+      body {
+        min-height: 100vh;
+        position: relative;
+      }
+
+      #root {
+        height: 100vh;
+        overflow: hidden;
+      }
+    </style>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div id="root">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script>
+      var socket = io();
+      socket.on('receive', function(msg){
+        console.log(msg);
+      });
+    </script>
+    <script src="/bundle.js"></script>
+  </body>
+</html>
