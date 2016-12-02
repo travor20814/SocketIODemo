@@ -103,25 +103,45 @@ class MainBoard extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.messages && nextProps.messages !== '') {
+      const msgBindName = `[ Server ]: ${nextProps.messages}`;
+
+      this.setState({
+        receive: [
+          ...this.state.receive,
+          msgBindName,
+        ],
+      });
+    }
+  }
+
   sending() {
+    const {
+      input,
+    } = this.refs;
+
     const {
       sendMessage,
     } = this.props;
 
-    sendMessage(socket);
+    sendMessage(socket, input.value);
   }
 
   render() {
+    const {
+      messages,
+    } = this.props;
+
     const {
       receive,
       clients,
     } = this.state;
 
-    console.log(clients);
     return (
       <div style={styles.wrapper}>
         <div style={styles.sendWrapper}>
-          You can send message:
+          You can send message: <input ref="input" type="text" />
           <button style={styles.sendBtn} onClick={this.sending.bind(this)}>send!</button>
         </div>
         <div style={styles.infoWrapper}>
@@ -146,6 +166,7 @@ class MainBoard extends Component {
 MainBoard.propTypes = {
   getConnection: T.func,
   sendMessage: T.func,
+  messages: T.string,
 };
 
 export default connect(
