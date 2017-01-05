@@ -1,6 +1,10 @@
 
 import http from 'http';
 import SocketIo from 'socket.io';
+import jwt from 'jsonwebtoken';
+import _ from 'lodash';
+
+const JWT_TOKEN = process.env.JWT_TOKEN || '_SocketIODemo*Rytass$';
 
 export function addSocketIO(app) {
   const server = http.Server(app);
@@ -8,17 +12,47 @@ export function addSocketIO(app) {
   const userList = [];
 
   io.on('connection', (socket) => {
-    userList.push(socket.handshake.query.name || socket.id);
+    // userList.push(socket.handshake.query.name || socket.id);
     io.emit('connected', {
       content: `-- [ ${socket.handshake.query.name || socket.id} ] joined the chat room --`,
       list: userList,
     });
-    socket.on('send', (data) => {
-      socket.broadcast.emit('receive', {
-        id: socket.id || 1,
-        avatar: 'http://orig06.deviantart.net/8267/f/2012/133/6/f/xcsox_basic_avatar_pack__1__john_cena_starz_by_xcaptainshowoffx-d4zkfdc.jpg',
-        name: socket.handshake.query.name || '江西拿',
-        content: `[ ${socket.handshake.query.name || socket.id} ]: ${data}`,
+    socket.on('join', data => {
+      console.log(data);
+      const jwtToken = data.accessToken;
+      jwt.verify(jwtToken.replace(/^Bearer\s/, ''), JWT_TOKEN, async (err, payloads) => {
+        if (err) {
+          return;
+        }
+
+        console.log(payloads);
+        if (!(_.find(userList, user => user.id === payloads.id))) {
+        console.log(`add user id=${payloads.id}`);
+          userList.push({
+            aclActions: payloads.actions,
+            payloads,
+          });
+        }
+      });
+    });
+    socket.on('send', data => {
+      console.log(data);
+      const jwtToken = data.accessToken;
+      jwt.verify(jwtToken.replace(/^Bearer\s/, ''), JWT_TOKEN, async (err, payloads) => {
+        if (err) {
+          return;
+        }
+
+        const sender = _.find(userList, user => user.payloads.id === payloads.id);
+        console.log(sender);
+        if (sender) {
+          socket.broadcast.emit('receive', {
+            id: sender.payloads.id || 1,
+            avatar: sender.payloads.avatar,
+            name: sender.payloads.name || '江西拿',
+            content: `[ ${sender.payloads.name || sender.payloads.id} ]: ${data.content}`,
+          });
+        }
       });
     });
     socket.on('disconnect', () => {

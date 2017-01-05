@@ -6,7 +6,7 @@
     "env": {
       "PORT": 1733,
       "DEBUG": "SocketIODemo:*",
-      "SOCKETIODEMO_DB": "mariadb://rytass:rytass2O15@localhost/socketiodemo",
+      "SOCKETIODEMO_DB": "mariadb://socketiodemo:rytass2O15@localhost/socketiodemo",
       "NODE_ENV": "development",
     },
     "watch": true,

@@ -15,8 +15,8 @@ export function getAccessToken() {
       method: 'GET',
       url: `${FACEBOOK_HOST}/oauth/access_token?`,
       qs: {
-        client_id: '656017987892779',
-        client_secret: 'd7fe8219684aa5a0ae0984712c3e01b3',
+        client_id: '273344253083176',
+        client_secret: 'f4529543b3ffbb5b09aee246ad1e4fa6',
         grant_type: 'client_credentials',
       },
       json: true,

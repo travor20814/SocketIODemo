@@ -85,6 +85,7 @@ router.post('/login', keeper({
       const tokenPayload = {
         id: member.id,
         name: member.name,
+        avatar: member.avatar,
         roles: member.Roles.map((role) => role.name),
         actions: memberActions,
       };
