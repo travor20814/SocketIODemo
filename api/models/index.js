@@ -15,7 +15,7 @@ const debugDB = debug('SocketIODemo:Database');
 debugDB('Loading Models...');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const SOCKETIODEMO_DB = process.env.SOCKETIODEMO_DB || 'mariadb://rytass:rytass2O15@localhost/socketiodemo';
+const SOCKETIODEMO_DB = process.env.SOCKETIODEMO_DB || 'mariadb://socketiodemo:rytass2O15@localhost/socketiodemo';
 const RESET_DB = process.env.RESET_DB || false;
 
 export const sequelize = new Sequelize(SOCKETIODEMO_DB, {

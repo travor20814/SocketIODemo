@@ -6,12 +6,21 @@
     "env": {
       "PORT": 1733,
       "DEBUG": "SocketIODemo:*",
-      "SOCKETIODEMO_DB": "mariadb://rytass:rytass2O15@localhost/socketiodemo",
+      "SOCKETIODEMO_DB": "mariadb://socketiodemo:rytass2O15@localhost/socketiodemo",
       "NODE_ENV": "development",
     },
     "watch": true,
     "ignore_watch": [
       "node_modules",
     ],
+  }, {
+    "cwd": "admin",
+    "name": "SocketIODemo_Admin",
+    "script": "runDev.js",
+    "env": {
+      "DEBUG": "SocketIODemo:*",
+      "NODE_ENV": "development",
+      "PORT": 1743,
+    },
   }],
 }
