@@ -12,10 +12,8 @@ export function addSocketIO(app) {
   const userList = [];
 
   io.on('connection', (socket) => {
-    // userList.push(socket.handshake.query.name || socket.id);
     io.emit('connected', {
-      content: `-- [ ${socket.handshake.query.name || socket.id} ] joined the chat room --`,
-      list: userList,
+      content: `-- [ ${socket.handshake.query.name || 'new user'} ] joined the chat room --`,
     });
     socket.on('join', data => {
       console.log(data);
@@ -33,6 +31,10 @@ export function addSocketIO(app) {
             payloads,
           });
         }
+
+        io.emit('checkUser', {
+          list: userList,
+        });
       });
     });
     socket.on('send', data => {

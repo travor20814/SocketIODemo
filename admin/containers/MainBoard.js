@@ -44,6 +44,8 @@ const styles = {
     letterSpacing: 1.5,
     fontSize: 17,
     padding: 10,
+    display: 'flex',
+    alignItems: 'center',
   },
   msgWrapper: {
     flex: 1,
@@ -57,6 +59,12 @@ const styles = {
     fontSize: 15,
     letterSpacing: 1.5,
     marginTop: 10,
+  },
+  photo: {
+    width: 50,
+    height: 50,
+    borderRadius: '50%',
+    margin: '0 0 0 10px',
   },
 };
 
@@ -81,6 +89,10 @@ class MainBoard extends Component {
           ...this.state.receive,
           data.content,
         ],
+      });
+    });
+    socket.on('checkUser', (data) => {
+      this.setState({
         clients: data.list,
       });
     });
@@ -127,7 +139,10 @@ class MainBoard extends Component {
         <div style={styles.infoWrapper}>
           <div style={styles.listWrapper}>
             {clients.map((client, idx) => (
-              <li key={idx} style={styles.list}>{client}</li>
+              <li key={idx} style={styles.list}>
+                {`► ${client.payloads && client.payloads.name}`}
+                <img alt="pic" style={styles.photo} src={client.payloads && client.payloads.avatar} />
+              </li>
             ))}
           </div>
           <div style={styles.msgWrapper}>
