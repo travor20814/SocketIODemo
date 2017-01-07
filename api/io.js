@@ -27,6 +27,7 @@ export function addSocketIO(app) {
         if (!(_.find(userList, user => user.id === payloads.id))) {
         console.log(`add user id=${payloads.id}`);
           userList.push({
+            socketId: socket.id,
             aclActions: payloads.actions,
             payloads,
           });
@@ -58,7 +59,7 @@ export function addSocketIO(app) {
       });
     });
     socket.on('disconnect', () => {
-      const leaveIndex = userList.findIndex((s) => s === socket.handshake.query.name);
+      const leaveIndex = userList.findIndex((s) => s.socketId === socket.id);
       if (leaveIndex >= 0) userList.splice(leaveIndex, 1);
 
       io.emit('disconnection', {
