@@ -133,8 +133,7 @@ class MainBoard extends Component {
     return (
       <div style={styles.wrapper}>
         <div style={styles.sendWrapper}>
-          You can send message:
-          <button style={styles.sendBtn} onClick={this.sending.bind(this)}>send!</button>
+          Server Monitor
         </div>
         <div style={styles.infoWrapper}>
           <div style={styles.listWrapper}>
